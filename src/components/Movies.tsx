@@ -9,53 +9,54 @@ const Movies: FunctionalComponent = () => {
 
     // GET with fetch API
     useEffect(() => {
-    const fetchPost = async () => {
-        const response = await fetch(
-            'http://127.0.0.1:8000/provinsis'
-        );
-        const data = await response.json();
-        console.log(data);
-        setPosts(data);
-    };
-    fetchPost();
+        const fetchPost = async () => {
+            const response = await fetch(
+                'http://127.0.0.1:8000/provinsis/?limit=2'
+            );
+            const data = await response.json();
+            console.log(data);
+            setPosts(data);
+        };
+        fetchPost();
     }, []);
 
     // Delete with fetchAPI
     const deletePost = async (id) => {
-    let response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${id}`,
-        {
-            method: 'DELETE',
-        }
-    );
-    if (response.status === 200) {
-        setPosts(
-            posts.filter((post) => {
-                return post.id !== id;
-            })
+        let response = await fetch(
+            `https://jsonplaceholder.typicode.com/posts/${id}`,
+            {
+                method: 'DELETE',
+            }
         );
-    } else {
-        return;
-    }
+        if (response.status === 200) {
+            setPosts(
+                posts.filter((post) => {
+                    return post.id !== id;
+                })
+            );
+        } else {
+            return;
+        }
     };
 
     // Post with fetchAPI
     const addPosts = async (title, body) => {
-    let response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify({
-            title: title,
-            body: body,
-            userId: Math.random().toString(36).slice(2),
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    });
-    let data = await response.json();
-    setPosts((posts) => [data, ...posts]);
-    setName('');
-    setBody('');
+        let response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: title,
+                body: body,
+                userId: Math.random().toString(36).slice(2),
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+
+        let data = await response.json();
+        setPosts((posts) => [data, ...posts]);
+        setName('');
+        setBody('');
     };
 
     const handleSubmit = (e) => {
@@ -64,7 +65,7 @@ const Movies: FunctionalComponent = () => {
     };
 
     return (
-        
+
         <>
             {posts.map((post) => {
                 return (
@@ -78,7 +79,7 @@ const Movies: FunctionalComponent = () => {
                 );
             })}
         </>
-        
+
     );
 };
 

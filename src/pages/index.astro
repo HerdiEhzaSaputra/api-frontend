@@ -9,6 +9,7 @@ import Splash from "~/components/splash.astro";
 import "~/styles/index.css";
 
 import Movies from '../components/Movies';
+import Tabs from '../components/Tabs';
 
 const { site } = Astro;
 const image = new URL("social.jpg", site);
@@ -85,6 +86,7 @@ const description =
   <Splash />
   <div class="px-8 py-32 space-y-24">
       <Movies client:load/>
+      <Tabs client:load/>
       <Intro />
       <Features />
       <Compatibility />
