@@ -62,7 +62,7 @@ export default function Tabs() {
     // let provinsis = useState(() => {
     //     const fetchPost = async () => {
     //         const response = await fetch(
-    //             'http://127.0.0.1:8000/provinsis'
+    //             'https://68u6d6.deta.dev/provinsis'
     //         );
     //         const data = await response.json();
     //         console.log(data);
@@ -75,7 +75,7 @@ export default function Tabs() {
     useEffect(() => {
         const fetchPost = async () => {
             const response = await fetch(
-                'http://127.0.0.1:8000/provinsis?limit=2'
+                'https://68u6d6.deta.dev/provinsis?limit=2'
             );
             const data = await response.json();
             console.log(data);
@@ -84,7 +84,7 @@ export default function Tabs() {
         fetchPost();
     }, []);
 
-    // let provinsis = useState(async () => { await fetch('http://127.0.0.1:8000/provinsis'); });
+    // let provinsis = useState(async () => { await fetch('https://68u6d6.deta.dev/provinsis'); });
 
     return (
         <div className="w-full max-w-md px-2 py-16 sm:px-0">

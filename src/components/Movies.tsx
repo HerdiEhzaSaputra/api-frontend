@@ -11,7 +11,7 @@ const Movies: FunctionalComponent = () => {
     useEffect(() => {
         const fetchPost = async () => {
             const response = await fetch(
-                'http://127.0.0.1:8000/provinsis/?limit=2'
+                'https://68u6d6.deta.dev/provinsis/?limit=2'
             );
             const data = await response.json();
             console.log(data);
