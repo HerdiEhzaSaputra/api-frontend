@@ -1,7 +1,6 @@
-import { Fragment } from 'react'
 import { Tab } from '@headlessui/react'
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
