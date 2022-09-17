@@ -8,7 +8,6 @@ import Showcase from "~/components/showcase.astro";
 import Splash from "~/components/splash.astro";
 import "~/styles/index.css";
 
-import Movies from '../components/Movies';
 import Tabs from '../components/Tabs';
 
 const { site } = Astro;
@@ -85,7 +84,6 @@ const description =
   <Header />
   <Splash />
   <div class="px-8 py-32 space-y-24">
-      <Movies client:load/>
       <Tabs client:load/>
       <Intro />
       <Features />

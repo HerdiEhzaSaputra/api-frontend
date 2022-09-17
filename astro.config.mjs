@@ -6,7 +6,7 @@ import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-moon-landing.netlify.app/",
+  site: "https://xezar.netlify.app/",
   // integrations: [tailwind(), preact({ compat:true })],
   integrations: [tailwind(), react()],
   vite: {
