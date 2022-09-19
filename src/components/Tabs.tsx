@@ -7,6 +7,50 @@ function classNames(...classes) {
 }
 
 export default function Tabs() {
+
+    const [dataprovinsi, setProv] = useState([]);
+
+    useEffect(() => { 
+        const getData = async () => { 
+            const response = await fetch("https://syudvujervgxfcrsdgle.nhost.run/v1/graphql",
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json',
+                    'x-hasura-admin-secret':'f714edf51d7ea44c2a384ebdafdfd55b'
+                },
+                body: JSON.stringify({
+                query: `
+                        query MyQuery {
+                            provinsi {
+                                name
+                                wilayah {
+                                    apbd_belanja
+                                    apbd_pendapatan
+                                    hari_jadi
+                                    gubernur
+                                    ibu_kota
+                                    ipm_bps
+                                    kepadatan_penduduk
+                                    kode_wilayah
+                                    luas
+                                    populasi
+                                    prdb_perkapita
+                                    prdb_total
+                                }
+                            }
+                        }
+                    `,
+                }),
+            });
+            const json = await response.json();
+            console.log(json);
+            setProv(json);
+        }
+        getData();
+    }, [])
+
+
     let [categories] = useState({
         Recent: [
             {
@@ -57,6 +101,7 @@ export default function Tabs() {
             },
         ],
     })
+    // console.log([categories]);
 
     // let provinsis = useState(() => {
     //     const fetchPost = async () => {
@@ -86,67 +131,69 @@ export default function Tabs() {
     // let provinsis = useState(async () => { await fetch('https://68u6d6.deta.dev/provinsis'); });
 
     return (
-        <div className="w-full max-w-md px-2 py-16 sm:px-0">
-            <Tab.Group>
-                <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-                    {provinsis.map((provinsi) => (
-                        <Tab
-                            key={provinsi.id}
-                            className={({ selected }) =>
-                                classNames(
-                                    'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
-                                    'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-                                    selected
-                                        ? 'bg-white shadow'
-                                        : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                                )
-                            }
-                        >
-                            {provinsi.name}
-                        </Tab>
-                    ))}
-                </Tab.List>
-                <Tab.Panels className="mt-2">
-                    {provinsis.map((idx) => (
-                        <Tab.Panel
-                            key={idx}
-                            className={classNames(
-                                'rounded-xl bg-white p-3',
-                                'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-                            )}
-                        >
-                            <ul>
-                                {provinsis.map((post) => (
-                                    <li
-                                        key={post.id}
-                                        className="relative rounded-md p-3 hover:bg-gray-100"
-                                    >
-                                        <h3 className="text-sm font-medium leading-5">
-                                            {post.title}
-                                        </h3>
+        <>
+            <div className="w-full max-w-md px-2 py-16 sm:px-0">
+                <Tab.Group>
+                    <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+                        {provinsis.map((provinsi) => (
+                            <Tab
+                                key={provinsi.id}
+                                className={({ selected }) =>
+                                    classNames(
+                                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
+                                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                                        selected
+                                            ? 'bg-white shadow'
+                                            : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                                    )
+                                }
+                            >
+                                {provinsi.name}
+                            </Tab>
+                        ))}
+                    </Tab.List>
+                    {/* <Tab.Panels className="mt-2">
+                        {provinsis.map((idx) => (
+                            <Tab.Panel
+                                key={idx}
+                                className={classNames(
+                                    'rounded-xl bg-white p-3',
+                                    'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                                )}
+                            >
+                                <ul>
+                                    {provinsis.map((post) => (
+                                        <li
+                                            key={post.id}
+                                            className="relative rounded-md p-3 hover:bg-gray-100"
+                                        >
+                                            <h3 className="text-sm font-medium leading-5">
+                                                {post.title}
+                                            </h3>
 
-                                        <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                                            <li>{post.date}</li>
-                                            <li>&middot;</li>
-                                            <li>{post.commentCount} comments</li>
-                                            <li>&middot;</li>
-                                            <li>{post.shareCount} shares</li>
-                                        </ul>
+                                            <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
+                                                <li>{post.date}</li>
+                                                <li>&middot;</li>
+                                                <li>{post.commentCount} comments</li>
+                                                <li>&middot;</li>
+                                                <li>{post.shareCount} shares</li>
+                                            </ul>
 
-                                        <a
-                                            href="#"
-                                            className={classNames(
-                                                'absolute inset-0 rounded-md',
-                                                'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                                            )}
-                                        />
-                                    </li>
-                                ))}
-                            </ul>
-                        </Tab.Panel>
-                    ))}
-                </Tab.Panels>
-            </Tab.Group>
-        </div>
+                                            <a
+                                                href="#"
+                                                className={classNames(
+                                                    'absolute inset-0 rounded-md',
+                                                    'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
+                                                )}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Tab.Panel>
+                        ))}
+                    </Tab.Panels> */}
+                </Tab.Group>
+            </div>
+        </>
     )
 }
